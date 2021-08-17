@@ -836,32 +836,32 @@ public class JpegImageParser extends ImageParser implements XmpEmbeddable {
         case 4:
             // Some images have both JFIF/APP0 and APP14.
             // JFIF is meant to win but in them APP14 is clearly right, so make it win.
-	        if (app14Segment != null && app14Segment.isAdobeJpegSegment()) {
-	            final int colorTransform = app14Segment.getAdobeColorTransform();
-	            switch (colorTransform) {
-	            case App14Segment.ADOBE_COLOR_TRANSFORM_UNKNOWN:
-	                if (numberOfComponents == 3) {
-	                    colorType = ImageInfo.ColorType.RGB;
-	                } else if (numberOfComponents == 4) {
-	                    colorType = ImageInfo.ColorType.CMYK;
-	                }
-	                break;
-	            case App14Segment.ADOBE_COLOR_TRANSFORM_YCbCr:
-	                colorType = ImageInfo.ColorType.YCbCr;
-	                break;
-	            case App14Segment.ADOBE_COLOR_TRANSFORM_YCCK:
-	                colorType = ImageInfo.ColorType.YCCK;
-	                break;
-	            default:
-	                break;
-	            }
-	        } else if (jfifSegment != null) {
-	            if (numberOfComponents == 1) {
-	                colorType = ImageInfo.ColorType.GRAYSCALE;
-	            } else if (numberOfComponents == 3) {
-	                colorType = ImageInfo.ColorType.YCbCr;
-	            }
-	        } else {
+            if (app14Segment != null && app14Segment.isAdobeJpegSegment()) {
+                final int colorTransform = app14Segment.getAdobeColorTransform();
+                switch (colorTransform) {
+                case App14Segment.ADOBE_COLOR_TRANSFORM_UNKNOWN:
+                    if (numberOfComponents == 3) {
+                        colorType = ImageInfo.ColorType.RGB;
+                    } else if (numberOfComponents == 4) {
+                        colorType = ImageInfo.ColorType.CMYK;
+                    }
+                    break;
+                case App14Segment.ADOBE_COLOR_TRANSFORM_YCbCr:
+                    colorType = ImageInfo.ColorType.YCbCr;
+                    break;
+                case App14Segment.ADOBE_COLOR_TRANSFORM_YCCK:
+                    colorType = ImageInfo.ColorType.YCCK;
+                    break;
+                default:
+                    break;
+                }
+            } else if (jfifSegment != null) {
+                if (numberOfComponents == 1) {
+                    colorType = ImageInfo.ColorType.GRAYSCALE;
+                } else if (numberOfComponents == 3) {
+                    colorType = ImageInfo.ColorType.YCbCr;
+                }
+            } else {
                 boolean have1 = false;
                 boolean have2 = false;
                 boolean have3 = false;
@@ -961,7 +961,7 @@ public class JpegImageParser extends ImageParser implements XmpEmbeddable {
                 break;
             }
         default:
-        	break;
+            break;
         }
 
         final ImageInfo.CompressionAlgorithm compressionAlgorithm = ImageInfo.CompressionAlgorithm.JPEG;
